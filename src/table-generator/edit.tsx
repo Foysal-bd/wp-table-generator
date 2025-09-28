@@ -1,38 +1,120 @@
 /**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
+ * WordPress dependencies
  */
 import { __ } from "@wordpress/i18n";
+import {
+	useBlockProps,
+	BlockEditProps,
+} from "@wordpress/block-editor";
+import { Button } from "@wordpress/components";
 
 /**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
-import { useBlockProps } from "@wordpress/block-editor";
-
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
+ * Internal dependencies
  */
 import "./editor.scss";
 
-/**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
- *
- * @return {Element} Element to render.
- */
-export default function Edit() {
+type TableGeneratorAttributes = {
+	tableData: string[][];
+};
+
+export default function Edit({
+	attributes,
+	setAttributes,
+}: BlockEditProps<TableGeneratorAttributes>) {
+	const { tableData = [[""]]} = attributes;
+
+	// Add column to the right of the clicked cell
+	const addColumn = (colIndex: number) => {
+		const newData = tableData.map((row) => {
+			const newRow = [...row];
+			newRow.splice(colIndex + 1, 0, ""); // insert empty cell
+			return newRow;
+		});
+		setAttributes({ tableData: newData });
+	};
+
+	// Remove entire column
+	const removeColumn = (colIndex: number) => {
+		if (tableData[0].length <= 1) return; // keep at least 1 col
+		const newData = tableData.map((row) => {
+			const newRow = [...row];
+			newRow.splice(colIndex, 1);
+			return newRow;
+		});
+		setAttributes({ tableData: newData });
+	};
+
+	// Add row below current row
+	const addRow = (rowIndex: number) => {
+		const newRow = tableData[0].map(() => ""); // create empty row with same cols
+		const newData = [...tableData];
+		newData.splice(rowIndex + 1, 0, newRow);
+		setAttributes({ tableData: newData });
+	};
+
+	// Remove entire row
+	const removeRow = (rowIndex: number) => {
+		if (tableData.length <= 1) return; // keep at least 1 row
+		const newData = [...tableData];
+		newData.splice(rowIndex, 1);
+		setAttributes({ tableData: newData });
+	};
+
+	// Update cell value
+	const updateCell = (rowIndex: number, colIndex: number, value: string) => {
+		const newData = tableData.map((row, r) =>
+			row.map((cell, c) => (r === rowIndex && c === colIndex ? value : cell))
+		);
+		setAttributes({ tableData: newData });
+	};
+
 	return (
-		<p {...useBlockProps()}>
-			{__("Table Generator – hello from the editor!", "table-generator")}
-		</p>
+		<div {...useBlockProps()}>
+			<table>
+				<tbody>
+					{tableData.map((row, rowIndex) => (
+						<tr key={rowIndex}>
+							{row.map((cell, colIndex) => (
+								<td key={colIndex}>
+									<input
+										type="text"
+										value={cell}
+										onChange={(e) =>
+											updateCell(rowIndex, colIndex, e.target.value)
+										}
+									/>
+									<div className="wp-table-controls">
+										<Button
+											isSmall
+											onClick={() => addColumn(colIndex)}
+										>
+											+ Col
+										</Button>
+										<Button
+											isSmall
+											onClick={() => removeColumn(colIndex)}
+										>
+											- Col
+										</Button>
+										<Button
+											isSmall
+											onClick={() => addRow(rowIndex)}
+										>
+											+ Row
+										</Button>
+										<Button
+											isSmall
+											onClick={() => removeRow(rowIndex)}
+										>
+											- Row
+										</Button>
+									</div>
+								</td>
+							))}
+						</tr>
+					))}
+				</tbody>
+			</table>
+		</div>
 	);
 }
