@@ -7,7 +7,12 @@
 	"category": "widgets",
 	"description": "Example block scaffolded with Create Block tool.",
 	"example": {},
-	"attributes": {},
+	"attributes": {
+		"tableData": {
+			"type": "array",
+			"default": [[""]]
+		}
+	},
 	"supports": {
 		"html": false
 	},
