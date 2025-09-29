@@ -34,8 +34,8 @@
 				&.wp-table-empty-header {
 					background: transparent;
 					border: none;
-					min-width: 80px;
-					width: 80px;
+					min-width: 40px;
+					width: 40px;
 				}
 			}
 			
@@ -87,8 +87,8 @@
 				flex-direction: column;
 				gap: 4px;
 				align-items: center;
-				min-width: 80px;
-				width: 80px;
+				min-width: 40px;
+				width: 40px;
 				
 				.components-button {
 					width: 100%;

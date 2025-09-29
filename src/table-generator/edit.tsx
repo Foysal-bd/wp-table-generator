@@ -2,13 +2,14 @@
  * WordPress dependencies
  */
 import { __ } from "@wordpress/i18n";
-import { useBlockProps, BlockEditProps } from "@wordpress/block-editor";
+import { useBlockProps } from "@wordpress/block-editor";
 import { Button } from "@wordpress/components";
 
 /**
  * Internal dependencies
  */
 import "./editor.scss";
+import { BlockEditProps } from "@wordpress/blocks";
 
 type TableGeneratorAttributes = {
 	tableData: string[][];
@@ -73,18 +74,16 @@ export default function Edit({
 								<th key={`col-${colIndex}`}>
 									<div className="wp-table-col-controls">
 										<Button
-											isSmall
 											variant="secondary"
 											onClick={() => addColumn(colIndex)}
 										>
-											+ Col
+											+
 										</Button>
 										<Button
-											isSmall
 											variant="secondary"
 											onClick={() => removeColumn(colIndex)}
 										>
-											- Col
+											-
 										</Button>
 									</div>
 								</th>
@@ -109,19 +108,14 @@ export default function Edit({
 									</td>
 								))}
 								<td className="wp-table-row-controls">
-									<Button
-										isSmall
-										variant="secondary"
-										onClick={() => addRow(rowIndex)}
-									>
-										+ Row
+									<Button variant="secondary" onClick={() => addRow(rowIndex)}>
+										+
 									</Button>
 									<Button
-										isSmall
 										variant="secondary"
 										onClick={() => removeRow(rowIndex)}
 									>
-										- Row
+										-
 									</Button>
 								</td>
 							</tr>
