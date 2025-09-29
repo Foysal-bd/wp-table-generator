@@ -2,10 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from "@wordpress/i18n";
-import {
-	useBlockProps,
-	BlockEditProps,
-} from "@wordpress/block-editor";
+import { useBlockProps, BlockEditProps } from "@wordpress/block-editor";
 import { Button } from "@wordpress/components";
 
 /**
@@ -21,7 +18,7 @@ export default function Edit({
 	attributes,
 	setAttributes,
 }: BlockEditProps<TableGeneratorAttributes>) {
-	const { tableData = [[""]]} = attributes;
+	const { tableData = [[""]] } = attributes;
 
 	// --- Column controls ---
 	const addColumn = (colIndex: number) => {
@@ -61,76 +58,77 @@ export default function Edit({
 	// --- Cell editing ---
 	const updateCell = (rowIndex: number, colIndex: number, value: string) => {
 		const newData = tableData.map((row, r) =>
-			row.map((cell, c) => (r === rowIndex && c === colIndex ? value : cell))
+			row.map((cell, c) => (r === rowIndex && c === colIndex ? value : cell)),
 		);
 		setAttributes({ tableData: newData });
 	};
 
 	return (
-		<div
-			{...useBlockProps({ className: "wp-table-generator" })}
-		>
-			<table>
-				<thead>
-					<tr>
-						{tableData[0].map((_, colIndex) => (
-							<th key={`col-${colIndex}`}>
-								<div className="wp-table-col-controls">
-									<Button
-										isSmall
-										variant="secondary"
-										onClick={() => addColumn(colIndex)}
-									>
-										+ Col
-									</Button>
-									<Button
-										isSmall
-										variant="secondary"
-										onClick={() => removeColumn(colIndex)}
-									>
-										- Col
-									</Button>
-								</div>
-							</th>
-						))}
-						<th className="wp-table-empty-header"></th>
-					</tr>
-				</thead>
-
-				<tbody>
-					{tableData.map((row, rowIndex) => (
-						<tr key={rowIndex}>
-							{row.map((cell, colIndex) => (
-								<td key={colIndex}>
-									<input
-										type="text"
-										value={cell}
-										onChange={(e) =>
-											updateCell(rowIndex, colIndex, e.target.value)
-										}
-									/>
-								</td>
+		<div {...useBlockProps({ className: "wp-table-generator" })}>
+			<div className="wp-table-container">
+				<table className="wp-table-editor">
+					<thead>
+						<tr>
+							{tableData[0].map((_, colIndex) => (
+								<th key={`col-${colIndex}`}>
+									<div className="wp-table-col-controls">
+										<Button
+											isSmall
+											variant="secondary"
+											onClick={() => addColumn(colIndex)}
+										>
+											+ Col
+										</Button>
+										<Button
+											isSmall
+											variant="secondary"
+											onClick={() => removeColumn(colIndex)}
+										>
+											- Col
+										</Button>
+									</div>
+								</th>
 							))}
-							<td className="wp-table-row-controls">
-								<Button
-									isSmall
-									variant="secondary"
-									onClick={() => addRow(rowIndex)}
-								>
-									+ Row
-								</Button>
-								<Button
-									isSmall
-									variant="secondary"
-									onClick={() => removeRow(rowIndex)}
-								>
-									- Row
-								</Button>
-							</td>
+							<th className="wp-table-empty-header"></th>
 						</tr>
-					))}
-				</tbody>
-			</table>
+					</thead>
+
+					<tbody>
+						{tableData.map((row, rowIndex) => (
+							<tr key={rowIndex}>
+								{row.map((cell, colIndex) => (
+									<td key={colIndex}>
+										<input
+											type="text"
+											value={cell}
+											onChange={(e) =>
+												updateCell(rowIndex, colIndex, e.target.value)
+											}
+											placeholder={`Cell ${rowIndex + 1}-${colIndex + 1}`}
+										/>
+									</td>
+								))}
+								<td className="wp-table-row-controls">
+									<Button
+										isSmall
+										variant="secondary"
+										onClick={() => addRow(rowIndex)}
+									>
+										+ Row
+									</Button>
+									<Button
+										isSmall
+										variant="secondary"
+										onClick={() => removeRow(rowIndex)}
+									>
+										- Row
+									</Button>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
 		</div>
 	);
 }
