@@ -8,6 +8,10 @@
 	"description": "Example block scaffolded with Create Block tool.",
 	"example": {},
 	"attributes": {
+		"headers": {
+			"type": "array",
+			"default": ["Column 1"]
+		  },
 		"tableData": {
 			"type": "array",
 			"default": [[""]]
