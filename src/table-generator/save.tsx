@@ -1,24 +1,39 @@
 /**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
+ * WordPress dependencies
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps } from "@wordpress/block-editor";
+import { BlockSaveProps } from "@wordpress/blocks";
 
-/**
- * The save function defines the way in which the different attributes should
- * be combined into the final markup, which is then serialized by the block
- * editor into `post_content`.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#save
- *
- * @return {Element} Element to render.
- */
-export default function save() {
+type TableGeneratorAttributes = {
+	headers: string[];
+	tableData: string[][];
+};
+
+export default function save({
+	attributes,
+}: BlockSaveProps<TableGeneratorAttributes>) {
+	const { headers = ["Column 1"], tableData = [[""]] } = attributes;
+
 	return (
-		<p { ...useBlockProps.save() }>
-			{ 'Table Generator – hello from the saved content!' }
-		</p>
+		<div {...useBlockProps.save({ className: "wp-table-generator" })}>
+			<table className="wp-table">
+				<thead>
+					<tr>
+						{headers.map((header, index) => (
+							<th key={index}>{header}</th>
+						))}
+					</tr>
+				</thead>
+				<tbody>
+					{tableData.map((row, rowIndex) => (
+						<tr key={rowIndex}>
+							{row.map((cell, colIndex) => (
+								<td key={colIndex}>{cell}</td>
+							))}
+						</tr>
+					))}
+				</tbody>
+			</table>
+		</div>
 	);
 }

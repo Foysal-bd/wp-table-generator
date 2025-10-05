@@ -102,7 +102,6 @@ export default function Edit({
 											+
 										</Button>
 										<Button
-											icon="minus"
 											label="Remove Column"
 											onClick={() => removeColumn(colIndex)}
 											className="wp-table-btn"
