@@ -3,12 +3,13 @@
  */
 import { __ } from "@wordpress/i18n";
 import { useBlockProps, RichText } from "@wordpress/block-editor";
+import { BlockEditProps } from "@wordpress/blocks";
 
 /**
  * Internal dependencies
  */
 import "./editor.scss";
-import { BlockEditProps } from "@wordpress/blocks";
+import { GripIcon, MinusIcon, PlusIcon } from "../assets/icon";
 
 type TableGeneratorAttributes = {
 	tableData: string[][];
@@ -20,6 +21,7 @@ export default function Edit({
 	setAttributes,
 }: BlockEditProps<TableGeneratorAttributes>) {
 	const { tableData = [[""]], headers = ["Column 1"] } = attributes;
+	console.log(tableData);
 
 	// --- Column controls ---
 	const addColumn = (colIndex: number) => {
@@ -154,37 +156,3 @@ export default function Edit({
 		</div>
 	);
 }
-
-// --- SVG icons ---
-const PlusIcon = ({ size = 16 }: { size?: number }) => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		width={size}
-		height={size}
-		viewBox="0 0 24 24"
-		fill="none"
-		stroke="currentColor"
-		strokeWidth="2"
-		strokeLinecap="round"
-		strokeLinejoin="round"
-	>
-		<path d="M5 12h14" />
-		<path d="M12 5v14" />
-	</svg>
-);
-
-const MinusIcon = ({ size = 16 }: { size?: number }) => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		width={size}
-		height={size}
-		viewBox="0 0 24 24"
-		fill="none"
-		stroke="currentColor"
-		strokeWidth="2"
-		strokeLinecap="round"
-		strokeLinejoin="round"
-	>
-		<path d="M5 12h14" />
-	</svg>
-);
