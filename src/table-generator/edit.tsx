@@ -2,8 +2,7 @@
  * WordPress dependencies
  */
 import { __ } from "@wordpress/i18n";
-import { useBlockProps } from "@wordpress/block-editor";
-import { Button } from "@wordpress/components";
+import { useBlockProps, RichText } from "@wordpress/block-editor";
 
 /**
  * Internal dependencies
@@ -88,10 +87,13 @@ export default function Edit({
 						<tr>
 							{headers.map((header, colIndex) => (
 								<th key={`header-${colIndex}`}>
-									<input
+									<RichText
+										tagName="span"
 										className="wp-table-header-input"
 										value={header}
-										onChange={(e) => updateHeader(colIndex, e.target.value)}
+										onChange={(value: string) => updateHeader(colIndex, value)}
+										placeholder={__("Header...", "table-generator")}
+										allowedFormats={["core/bold", "core/italic", "core/link"]}
 									/>
 									<div className="wp-table-col-btns">
 										<div
@@ -118,13 +120,15 @@ export default function Edit({
 							<tr key={rowIndex}>
 								{row.map((cell, colIndex) => (
 									<td key={`${rowIndex}-${colIndex}`}>
-										<input
-											type="text"
+										<RichText
+											tagName="div"
 											value={cell}
-											onChange={(e) =>
-												updateCell(rowIndex, colIndex, e.target.value)
+											onChange={(value: string) =>
+												updateCell(rowIndex, colIndex, value)
 											}
+											placeholder={__("Enter text...", "table-generator")}
 											className="wp-table-cell-input"
+											allowedFormats={["core/bold", "core/italic", "core/link"]}
 										/>
 									</td>
 								))}
@@ -151,39 +155,36 @@ export default function Edit({
 	);
 }
 
-const PlusIcon = ({ size = 16 }: { size?: number }) => {
-	return (
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width={size}
-			height={size}
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-		>
-			<path d="M5 12h14" />
-			<path d="M12 5v14" />
-		</svg>
-	);
-};
+// --- SVG icons ---
+const PlusIcon = ({ size = 16 }: { size?: number }) => (
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		width={size}
+		height={size}
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		strokeWidth="2"
+		strokeLinecap="round"
+		strokeLinejoin="round"
+	>
+		<path d="M5 12h14" />
+		<path d="M12 5v14" />
+	</svg>
+);
 
-const MinusIcon = ({ size = 16 }: { size?: number }) => {
-	return (
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width={size}
-			height={size}
-			viewBox="0 0 24 24"
-			fill="none"
-			stroke="currentColor"
-			stroke-width="2"
-			stroke-linecap="round"
-			stroke-linejoin="round"
-		>
-			<path d="M5 12h14" />
-		</svg>
-	);
-};
+const MinusIcon = ({ size = 16 }: { size?: number }) => (
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		width={size}
+		height={size}
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		strokeWidth="2"
+		strokeLinecap="round"
+		strokeLinejoin="round"
+	>
+		<path d="M5 12h14" />
+	</svg>
+);

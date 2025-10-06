@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { useBlockProps } from "@wordpress/block-editor";
+import { useBlockProps, RichText } from "@wordpress/block-editor";
 import { BlockSaveProps } from "@wordpress/blocks";
 
 type TableGeneratorAttributes = {
@@ -20,15 +20,28 @@ export default function save({
 				<thead>
 					<tr>
 						{headers.map((header, index) => (
-							<th key={index}>{header}</th>
+							<th key={index}>
+								<RichText.Content
+									tagName="span"
+									value={header}
+									className="wp-table-header-content"
+								/>
+							</th>
 						))}
 					</tr>
 				</thead>
+
 				<tbody>
 					{tableData.map((row, rowIndex) => (
 						<tr key={rowIndex}>
 							{row.map((cell, colIndex) => (
-								<td key={colIndex}>{cell}</td>
+								<td key={colIndex}>
+									<RichText.Content
+										tagName="div"
+										value={cell}
+										className="wp-table-cell-content"
+									/>
+								</td>
 							))}
 						</tr>
 					))}
