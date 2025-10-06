@@ -15,6 +15,43 @@
 		"tableData": {
 			"type": "array",
 			"default": [[""]]
+		},
+		"textAlign": {
+			"type": "string",
+			"enum": ["left", "center", "right"],
+			"default": "left"
+		},
+		"textColor": {
+			"type": "string",
+			"default": "#333333"
+		},
+        "headerTextColor": {
+            "type": "string",
+            "default": "#222222"
+        },
+		"backgroundColor": {
+			"type": "string",
+			"default": "#ffffff"
+		},
+        "headerBackgroundColor": {
+            "type": "string",
+            "default": "#f8fafc"
+        },
+        "striped": {
+            "type": "boolean",
+            "default": true
+        },
+        "stripedBackgroundColor": {
+            "type": "string",
+            "default": "#f9fafb"
+        },
+		"borderColor": {
+			"type": "string",
+			"default": "#e5e7eb"
+		},
+		"borderWidth": {
+			"type": "number",
+			"default": 1
 		}
 	},
 	"supports": {
