@@ -7,12 +7,16 @@
 		width: 100%;
 		border-collapse: collapse;
 		text-align: left;
+		table-layout: fixed;
 
 		th,
 		td {
 			border: 1px solid #ddd;
 			padding: 6px;
 			position: relative;
+			word-wrap: break-word;
+			word-break: break-word;
+			overflow-wrap: anywhere;
 		}
 
 		th {
@@ -20,13 +24,18 @@
 			font-weight: 600;
 		}
 
-		input {
+		.wp-table-header-input,
+		.wp-table-cell-input {
 			width: 100%;
+			display: block;
 			border: none;
 			outline: none;
 			background: transparent;
-			// padding: 4px;
 			font-size: 14px;
+			white-space: normal;
+			word-wrap: break-word;
+			word-break: break-word;
+			overflow-wrap: anywhere;
 
 			&:focus {
 				background: #eef6ff;
@@ -42,8 +51,12 @@
 			background-color: transparent;
 		}
 
-		.wp-table-btn {
-			
+		// narrow control columns so they don't affect equal widths much
+		.wp-table-empty-th,
+		.wp-table-row-btns {
+			width: 40px;
+			white-space: nowrap;
 		}
+
 	}
 }
