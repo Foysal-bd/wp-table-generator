@@ -36,6 +36,14 @@ type TableGeneratorAttributes = {
 	stripedBackgroundColor?: string;
 	borderColor?: string;
 	borderWidth?: number;
+	fontSize?: string;
+	fontFamily?: string;
+	fontWeight?: string;
+	fontStyle?: string;
+	textDecoration?: string;
+	textTransform?: string;
+	letterSpacing?: string;
+	lineHeight?: string;
 };
 
 export default function Edit({
@@ -54,6 +62,14 @@ export default function Edit({
 		stripedBackgroundColor = "#f9fafb",
 		borderColor = "#e5e7eb",
 		borderWidth = 1,
+		fontSize,
+		fontFamily,
+		fontWeight,
+		fontStyle,
+		textDecoration,
+		textTransform,
+		letterSpacing,
+		lineHeight,
 	} = attributes;
 
 	// --- Column controls ---
@@ -121,6 +137,14 @@ export default function Edit({
 		textAlign,
 		color: headerTextColor,
 		backgroundColor: headerBackgroundColor,
+		fontSize,
+		fontFamily,
+		fontWeight,
+		fontStyle,
+		textDecoration,
+		textTransform: textTransform as "none" | "capitalize" | "uppercase" | "lowercase" | undefined,
+		letterSpacing,
+		lineHeight,
 	};
 
 	const bodyCellBaseStyle: CSSProperties = {
@@ -130,6 +154,14 @@ export default function Edit({
 		textAlign,
 		color: textColor,
 		backgroundColor,
+		fontSize,
+		fontFamily,
+		fontWeight,
+		fontStyle,
+		textDecoration,
+		textTransform: textTransform as "none" | "capitalize" | "uppercase" | "lowercase" | undefined,
+		letterSpacing,
+		lineHeight,
 	};
 
 	return (
@@ -237,6 +269,115 @@ export default function Edit({
 							setAttributes({ borderWidth: value ?? 0 })
 						}
 					/>
+				</PanelBody>
+				<PanelBody title={__("Typography", "table-generator")} initialOpen={false}>
+					<BaseControl
+						__nextHasNoMarginBottom
+						label={__("Font Size", "table-generator")}
+					>
+						<input
+							type="text"
+							value={fontSize || ""}
+							onChange={(e) => setAttributes({ fontSize: e.target.value })}
+							placeholder="e.g., 16px, 1.2em"
+							style={{ width: "100%" }}
+						/>
+					</BaseControl>
+
+					<BaseControl
+						__nextHasNoMarginBottom
+						label={__("Font Family", "table-generator")}
+					>
+						<input
+							type="text"
+							value={fontFamily || ""}
+							onChange={(e) => setAttributes({ fontFamily: e.target.value })}
+							placeholder="e.g., Arial, sans-serif"
+							style={{ width: "100%" }}
+						/>
+					</BaseControl>
+
+					<SelectControl
+						label={__("Font Weight", "table-generator")}
+						value={fontWeight || ""}
+						onChange={(value: string) => setAttributes({ fontWeight: value })}
+						options={[
+							{ label: __("Default", "table-generator"), value: "" },
+							{ label: __("100 - Thin", "table-generator"), value: "100" },
+							{ label: __("200 - Extra Light", "table-generator"), value: "200" },
+							{ label: __("300 - Light", "table-generator"), value: "300" },
+							{ label: __("400 - Normal", "table-generator"), value: "400" },
+							{ label: __("500 - Medium", "table-generator"), value: "500" },
+							{ label: __("600 - Semi Bold", "table-generator"), value: "600" },
+							{ label: __("700 - Bold", "table-generator"), value: "700" },
+							{ label: __("800 - Extra Bold", "table-generator"), value: "800" },
+							{ label: __("900 - Black", "table-generator"), value: "900" },
+						]}
+					/>
+
+					<SelectControl
+						label={__("Font Style", "table-generator")}
+						value={fontStyle || ""}
+						onChange={(value: string) => setAttributes({ fontStyle: value })}
+						options={[
+							{ label: __("Default", "table-generator"), value: "" },
+							{ label: __("Normal", "table-generator"), value: "normal" },
+							{ label: __("Italic", "table-generator"), value: "italic" },
+							{ label: __("Oblique", "table-generator"), value: "oblique" },
+						]}
+					/>
+
+					<SelectControl
+						label={__("Text Decoration", "table-generator")}
+						value={textDecoration || ""}
+						onChange={(value: string) => setAttributes({ textDecoration: value })}
+						options={[
+							{ label: __("Default", "table-generator"), value: "" },
+							{ label: __("None", "table-generator"), value: "none" },
+							{ label: __("Underline", "table-generator"), value: "underline" },
+							{ label: __("Overline", "table-generator"), value: "overline" },
+							{ label: __("Line Through", "table-generator"), value: "line-through" },
+						]}
+					/>
+
+					<SelectControl
+						label={__("Text Transform", "table-generator")}
+						value={textTransform || ""}
+						onChange={(value: string) => setAttributes({ textTransform: value })}
+						options={[
+							{ label: __("Default", "table-generator"), value: "" },
+							{ label: __("None", "table-generator"), value: "none" },
+							{ label: __("Uppercase", "table-generator"), value: "uppercase" },
+							{ label: __("Lowercase", "table-generator"), value: "lowercase" },
+							{ label: __("Capitalize", "table-generator"), value: "capitalize" },
+						]}
+					/>
+
+					<BaseControl
+						__nextHasNoMarginBottom
+						label={__("Letter Spacing", "table-generator")}
+					>
+						<input
+							type="text"
+							value={letterSpacing || ""}
+							onChange={(e) => setAttributes({ letterSpacing: e.target.value })}
+							placeholder="e.g., 0.1em, 2px"
+							style={{ width: "100%" }}
+						/>
+					</BaseControl>
+
+					<BaseControl
+						__nextHasNoMarginBottom
+						label={__("Line Height", "table-generator")}
+					>
+						<input
+							type="text"
+							value={lineHeight || ""}
+							onChange={(e) => setAttributes({ lineHeight: e.target.value })}
+							placeholder="e.g., 1.5, 24px"
+							style={{ width: "100%" }}
+						/>
+					</BaseControl>
 				</PanelBody>
 			</InspectorControls>
 			<div className="wp-table-wrapper">

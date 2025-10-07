@@ -18,6 +18,14 @@ type TableGeneratorAttributes = {
 	stripedBackgroundColor?: string;
 	borderColor?: string;
 	borderWidth?: number;
+	fontSize?: string;
+	fontFamily?: string;
+	fontWeight?: string;
+	fontStyle?: string;
+	textDecoration?: string;
+	textTransform?: string;
+	letterSpacing?: string;
+	lineHeight?: string;
 };
 
 export default function save({
@@ -35,6 +43,14 @@ export default function save({
 		stripedBackgroundColor = "#f9fafb",
 		borderColor = "#e5e7eb",
 		borderWidth = 1,
+		fontSize,
+		fontFamily,
+		fontWeight,
+		fontStyle,
+		textDecoration,
+		textTransform,
+		letterSpacing,
+		lineHeight,
 	} = attributes;
 
 	const headerCellStyle: CSSProperties = {
@@ -44,6 +60,14 @@ export default function save({
 		textAlign,
 		color: headerTextColor,
 		backgroundColor: headerBackgroundColor,
+		fontSize,
+		fontFamily,
+		fontWeight,
+		fontStyle,
+		textDecoration,
+		textTransform: textTransform as "none" | "capitalize" | "uppercase" | "lowercase" | undefined,
+		letterSpacing,
+		lineHeight,
 	};
 
 	const bodyCellBaseStyle: CSSProperties = {
@@ -53,6 +77,14 @@ export default function save({
 		textAlign,
 		color: textColor,
 		backgroundColor,
+		fontSize,
+		fontFamily,
+		fontWeight,
+		fontStyle,
+		textDecoration,
+		textTransform: textTransform as "none" | "capitalize" | "uppercase" | "lowercase" | undefined,
+		letterSpacing,
+		lineHeight,
 	};
 
 	return (
