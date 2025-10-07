@@ -44,7 +44,7 @@ export default function Edit({
 }: BlockEditProps<TableGeneratorAttributes>) {
 	const {
 		tableData = [[""]],
-		headers = ["Column 1"],
+		headers = ["Header"],
 		textAlign = "left",
 		textColor = "#333333",
 		headerTextColor = "#222222",
@@ -59,7 +59,7 @@ export default function Edit({
 	// --- Column controls ---
 	const addColumn = (colIndex: number) => {
 		const newHeaders = [...headers];
-		newHeaders.splice(colIndex + 1, 0, `Column ${headers.length + 1}`);
+		newHeaders.splice(colIndex + 1, 0, `Header`);
 
 		const newData = tableData.map((row) => {
 			const newRow = [...row];
@@ -255,7 +255,7 @@ export default function Edit({
 									/>
 									<div className="wp-table-col-btns">
 										<div
-											onClick={() => addColumn(colIndex)}
+											onClick={() => addColumn(colIndex - 1)}
 											className="wp-table-btn"
 										>
 											<PlusIcon />
@@ -265,6 +265,12 @@ export default function Edit({
 											className="wp-table-btn"
 										>
 											<MinusIcon />
+										</div>
+										<div
+											onClick={() => addColumn(colIndex)}
+											className="wp-table-btn"
+										>
+											<PlusIcon />
 										</div>
 									</div>
 								</th>

@@ -10,7 +10,7 @@
 	"attributes": {
 		"headers": {
 			"type": "array",
-			"default": ["Column 1"]
+			"default": ["Header"]
 		  },
 		"tableData": {
 			"type": "array",
