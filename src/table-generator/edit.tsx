@@ -22,7 +22,7 @@ import { BlockEditProps } from "@wordpress/blocks";
  * Internal dependencies
  */
 import "./editor.scss";
-import { GripIcon, MinusIcon, PlusIcon } from "../assets/icon";
+import {MinusIcon, PlusIcon } from "../assets/icon";
 
 type TableGeneratorAttributes = {
 	tableData: string[][];
