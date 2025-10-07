@@ -1,7 +1,6 @@
 .wp-table-generator {
 	width: 100%;
 	overflow-x: auto;
-	padding: 10px;
 
 	.wp-table {
 		width: 100%;
@@ -56,7 +55,13 @@
 		.wp-table-row-btns {
 			width: 40px;
 			white-space: nowrap;
+			background-color: transparent;
+			border: none;
 		}
 
+		// .wp-table-empty-th{
+		// 	background-color: transparent;
+		// 	border: none;
+		// }
 	}
 }

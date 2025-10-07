@@ -55,7 +55,6 @@ export default function Edit({
 		borderColor = "#e5e7eb",
 		borderWidth = 1,
 	} = attributes;
-	console.log(tableData);
 
 	// --- Column controls ---
 	const addColumn = (colIndex: number) => {
